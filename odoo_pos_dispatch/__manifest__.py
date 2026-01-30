@@ -27,7 +27,7 @@ Designed for restaurants, retail, and wholesale businesses running in-house or a
     "category": "Point of Sale",
     "author": "Dakill Technologies Ltd",
     "website": "https://github.com/CollonelCollo/odoo-18-pos-dispatch-and-delivery",
-    "license": "LGPL-3",
+    "license": "OPL-1",
     "depends": [
         "mail",
         "point_of_sale",
