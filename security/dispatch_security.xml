@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="module_category_meera_dispatch" model="ir.module.category">
+            <field name="name">Meera Dispatch</field>
+            <field name="sequence">30</field>
+        </record>
+
+        <record id="group_meera_dispatch_user" model="res.groups">
+            <field name="name">Dispatch User</field>
+            <field name="category_id" ref="module_category_meera_dispatch"/>
+        </record>
+
+        <record id="group_meera_dispatch_manager" model="res.groups">
+            <field name="name">Dispatch Manager</field>
+            <field name="category_id" ref="module_category_meera_dispatch"/>
+            <field name="implied_ids" eval="[(4, ref('odoo_pos_dispatch.group_meera_dispatch_user'))]"/>
+        </record>
+
+        <!--
+            Driver / Rider login policy:
+            Drivers/Riders must not be Internal Users (base.group_user) because they consume paid licenses.
+            This group is Portal-based and is used by our driver creation flow plus ORM enforcement.
+        -->
+        <record id="group_meera_driver_portal" model="res.groups">
+            <field name="name">Driver (Portal)</field>
+            <field name="category_id" ref="module_category_meera_dispatch"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+
+    </data>
+</odoo>

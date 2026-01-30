@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <t t-name="odoo_pos_dispatch.ReceiptHeaderExtension"
+       t-inherit="point_of_sale.ReceiptHeader"
+       t-inherit-mode="extension"
+       owl="1">
+
+        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="inside">
+
+            <!-- Dispatch Reference (meera.dispatch.order.name) -->
+            <t t-if="props.data.meera_dispatch_reference">
+                <div style="font-weight: bold; margin-top: 4px;">
+                    Dispatch Ref:
+                    <t t-esc="props.data.meera_dispatch_reference"/>
+                </div>
+            </t>
+
+            <!-- Order Type -->
+            <t t-if="props.data.meera_order_type_name">
+                <div style="font-weight: bold; margin-top: 4px;">
+                    Order Type:
+                    <t t-esc="props.data.meera_order_type_name"/>
+                </div>
+            </t>
+
+            <!-- CUSTOMER DETAILS: show ONLY for non-delivery -->
+            <t t-if="!props.data.meera_is_delivery and (props.data.meera_customer_name or props.data.meera_customer_phone or props.data.meera_customer_mobile or props.data.meera_customer_address)">
+                <div style="font-weight: bold; margin-top: 4px;">
+                    Customer:
+                    <t t-esc="props.data.meera_customer_name"/>
+                </div>
+
+                <t t-if="props.data.meera_customer_phone">
+                    <div style="font-weight: bold;">
+                        Phone:
+                        <t t-esc="props.data.meera_customer_phone"/>
+                    </div>
+                </t>
+
+                <t t-if="props.data.meera_customer_mobile">
+                    <div style="font-weight: bold;">
+                        Mobile:
+                        <t t-esc="props.data.meera_customer_mobile"/>
+                    </div>
+                </t>
+
+                <t t-if="props.data.meera_customer_address">
+                    <div style="font-weight: bold;">
+                        Address:
+                        <t t-esc="props.data.meera_customer_address"/>
+                    </div>
+                </t>
+            </t>
+
+            <!-- DELIVERY DETAILS: show ONLY for delivery -->
+            <t t-if="props.data.meera_is_delivery">
+                <div style="margin-top: 4px; font-weight: bold;">
+                    Delivery Details
+                </div>
+
+                <t t-if="props.data.meera_delivery_name">
+                    <div style="font-weight: bold;">
+                        Name:
+                        <t t-esc="props.data.meera_delivery_name"/>
+                    </div>
+                </t>
+
+                <t t-if="props.data.meera_delivery_phone">
+                    <div style="font-weight: bold;">
+                        Phone:
+                        <t t-esc="props.data.meera_delivery_phone"/>
+                    </div>
+                </t>
+
+                <t t-if="props.data.meera_delivery_address">
+                    <div style="font-weight: bold;">
+                        Address:
+                        <t t-esc="props.data.meera_delivery_address"/>
+                    </div>
+                </t>
+
+                <t t-if="props.data.meera_delivery_note">
+                    <div style="font-weight: bold;">
+                        Note:
+                        <t t-esc="props.data.meera_delivery_note"/>
+                    </div>
+                </t>
+            </t>
+
+        </xpath>
+    </t>
+
+</odoo>

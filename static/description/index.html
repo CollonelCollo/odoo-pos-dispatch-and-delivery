@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>POS Dispatch & Delivery (Odoo 18)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <style>
+    /* Hard-stop any float/collapse quirks from marketplace CSS */
+    .meera-wrap img{max-width:100%;height:auto}
+    .meera-clear{clear:both}
+  </style>
+</head>
+
+<body>
+<div class="meera-wrap">
+
+<!-- =========================
+ HERO / INTRO
+========================= -->
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h2 class="oe_slogan">POS Dispatch &amp; Delivery (Odoo 18)</h2>
+
+    <p class="oe_mt32" style="max-width:900px;margin:0 auto;">
+      A production-ready dispatch workflow for businesses that deliver orders created in
+      <strong>Odoo POS</strong>.
+      Backend-authoritative, POS-friendly, offline-safe, and receipt-integrated — built for
+      <strong>restaurants</strong>, <strong>retail</strong>, and <strong>wholesale</strong>
+      operations running in-house or assigned deliveries.
+    </p>
+
+    <div class="oe_mt32" style="text-align:center;">
+      <span style="display:inline-block;background:#f3f4f6;border:1px solid #e5e7eb;padding:6px 10px;border-radius:999px;font-size:12px;margin:4px;">Odoo 18 Enterprise</span>
+      <span style="display:inline-block;background:#f3f4f6;border:1px solid #e5e7eb;padding:6px 10px;border-radius:999px;font-size:12px;margin:4px;">POS Dispatch Jobs</span>
+      <span style="display:inline-block;background:#f3f4f6;border:1px solid #e5e7eb;padding:6px 10px;border-radius:999px;font-size:12px;margin:4px;">Drivers &amp; Vehicles</span>
+      <span style="display:inline-block;background:#f3f4f6;border:1px solid #e5e7eb;padding:6px 10px;border-radius:999px;font-size:12px;margin:4px;">Receipt Enhancements</span>
+      <span style="display:inline-block;background:#f3f4f6;border:1px solid #e5e7eb;padding:6px 10px;border-radius:999px;font-size:12px;margin:4px;">Offline POS Safe</span>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+ WORKFLOW
+========================= -->
+<section class="oe_container oe_dark">
+  <div class="oe_row oe_spaced">
+    <h3 class="oe_slogan">Workflow</h3>
+
+    <div class="oe_mt32" style="text-align:center;line-height:2;">
+      <span style="display:inline-block;padding:8px 10px;border-radius:999px;border:1px solid #e5e7eb;background:#fafafa;font-size:12px;">POS Order</span>
+      <span style="margin:0 8px;color:#9ca3af;font-weight:700;">→</span>
+      <span style="display:inline-block;padding:8px 10px;border-radius:999px;border:1px solid #e5e7eb;background:#fafafa;font-size:12px;">Dispatch Job</span>
+      <span style="margin:0 8px;color:#9ca3af;font-weight:700;">→</span>
+      <span style="display:inline-block;padding:8px 10px;border-radius:999px;border:1px solid #e5e7eb;background:#fafafa;font-size:12px;">Assign Driver / Vehicle</span>
+      <span style="margin:0 8px;color:#9ca3af;font-weight:700;">→</span>
+      <span style="display:inline-block;padding:8px 10px;border-radius:999px;border:1px solid #e5e7eb;background:#fafafa;font-size:12px;">Track Delivery Status</span>
+      <span style="margin:0 8px;color:#9ca3af;font-weight:700;">→</span>
+      <span style="display:inline-block;padding:8px 10px;border-radius:999px;border:1px solid #e5e7eb;background:#fafafa;font-size:12px;">Receipt (Dispatch Ref + Details)</span>
+    </div>
+
+    <p class="oe_mt32" style="max-width:900px;margin:0 auto;">
+      Dispatch records are created on the backend and synced safely to POS.
+      The receipt can print the dispatch reference and delivery details automatically.
+    </p>
+  </div>
+</section>
+
+<!-- =========================
+ HIGHLIGHTS
+========================= -->
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h3 class="oe_slogan">Highlights</h3>
+
+    <div class="oe_mt32" style="max-width:980px;margin:0 auto;">
+      <div style="display:flex;flex-wrap:wrap;gap:14px;">
+
+        <div style="flex:1 1 420px;border:1px solid #e5e7eb;border-radius:14px;padding:14px;background:#fff;">
+          <h4 style="margin:0 0 8px;font-size:14px;">✅ Dispatch Job Automation</h4>
+          <ul style="margin:0;padding-left:18px;line-height:1.6;color:#374151;">
+            <li>Automatic dispatch job creation for eligible POS orders</li>
+            <li>Database-enforced: one dispatch job per POS order</li>
+            <li>Safe relink logic if a job already exists</li>
+          </ul>
+        </div>
+
+        <div style="flex:1 1 420px;border:1px solid #e5e7eb;border-radius:14px;padding:14px;background:#fff;">
+          <h4 style="margin:0 0 8px;font-size:14px;">✅ Hardened Delivery States</h4>
+          <ul style="margin:0;padding-left:18px;line-height:1.6;color:#374151;">
+            <li>Waiting → Assigned → En Route → Delivered</li>
+            <li>Failed / Cancelled terminal states</li>
+            <li>Guarded transitions to prevent invalid operations</li>
+          </ul>
+        </div>
+
+        <div style="flex:1 1 420px;border:1px solid #e5e7eb;border-radius:14px;padding:14px;background:#fff;">
+          <h4 style="margin:0 0 8px;font-size:14px;">✅ POS Receipt Enhancements</h4>
+          <ul style="margin:0;padding-left:18px;line-height:1.6;color:#374151;">
+            <li>Print dispatch reference (e.g. DSP/00009)</li>
+            <li>Print order type (Delivery / Takeaway / Dine-In)</li>
+            <li>Print delivery details (name, phone, address, note)</li>
+          </ul>
+        </div>
+
+        <div style="flex:1 1 420px;border:1px solid #e5e7eb;border-radius:14px;padding:14px;background:#fff;">
+          <h4 style="margin:0 0 8px;font-size:14px;">✅ Backend-Authoritative, Offline-Safe</h4>
+          <ul style="margin:0;padding-left:18px;line-height:1.6;color:#374151;">
+            <li>Server-side sequencing and reliable references</li>
+            <li>POS fetches dispatch reference after successful sync</li>
+            <li>Works with offline POS and deferred order sync</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+ SCREENSHOTS (FIXED: no overlap)
+ - Avoid oe_demo/oe_picture/oe_screenshot: App Store CSS can position them oddly.
+ - Use self-contained blocks with display:block and clear:both.
+========================= -->
+<section class="oe_container oe_dark">
+  <div class="oe_row oe_spaced">
+    <h3 class="oe_slogan">Screenshots</h3>
+
+    <p class="oe_mt32" style="max-width:900px;margin:0 auto;">
+      Real screenshots from a production Odoo 18 system.
+    </p>
+
+    <div class="meera-clear" style="height:1px;"></div>
+
+    <div style="max-width:980px;margin:24px auto;display:flex;flex-direction:column;gap:18px;">
+
+      <div class="meera-clear"
+           style="display:block;background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:10px;overflow:hidden;">
+        <img src="screenshots/01.png" alt="Order Type Selector (POS)"
+             style="display:block;width:100%;height:auto;border-radius:10px;"/>
+      </div>
+
+      <div class="meera-clear"
+           style="display:block;background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:10px;overflow:hidden;">
+        <img src="screenshots/02.png" alt="Dispatch Dashboard (Kanban)"
+             style="display:block;width:100%;height:auto;border-radius:10px;"/>
+      </div>
+
+      <div class="meera-clear"
+           style="display:block;background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:10px;overflow:hidden;">
+        <img src="screenshots/03.png" alt="Dispatch Details + Live Tracking"
+             style="display:block;width:100%;height:auto;border-radius:10px;"/>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+ TECHNICAL NOTES
+========================= -->
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h3 class="oe_slogan">Technical Notes</h3>
+
+    <p class="oe_mt32" style="max-width:900px;margin:0 auto;">
+      Extends Odoo 18 POS using safe asset additions and OWL-compatible templates.
+      No core files are overwritten. Dispatch logic is backend-driven for correctness
+      in multi-session environments.
+    </p>
+
+    <div class="oe_mt32" style="max-width:900px;margin:0 auto;">
+      <pre style="font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono','Courier New',monospace;
+                  font-size:12px;background:#0b1220;color:#e5e7eb;padding:12px;border-radius:12px;overflow:auto;">
+Installation:
+  1) Copy the module into your custom addons path
+  2) Update Apps List
+  3) Install "POS Dispatch &amp; Delivery"
+  4) Reload POS with ?debug=assets (one-time)
+      </pre>
+    </div>
+
+    <div class="oe_mt32" style="max-width:900px;margin:0 auto;color:#6b7280;font-size:12px;">
+      <div><strong>License:</strong> LGPL-3</div>
+      <div><strong>Author:</strong> Dakill Technologies Ltd</div>
+    </div>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

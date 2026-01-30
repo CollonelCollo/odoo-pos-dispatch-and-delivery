@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_meera_dispatch_order_manager,meera.dispatch.order manager,model_meera_dispatch_order,odoo_pos_dispatch.group_meera_dispatch_manager,1,1,1,1
+access_meera_dispatch_order_user,meera.dispatch.order user,model_meera_dispatch_order,odoo_pos_dispatch.group_meera_dispatch_user,1,1,1,0
+
+access_meera_driver_location_manager,meera.driver.location manager,model_meera_driver_location,odoo_pos_dispatch.group_meera_dispatch_manager,1,1,1,1
+access_meera_driver_location_user,meera.driver.location user,model_meera_driver_location,odoo_pos_dispatch.group_meera_dispatch_user,1,0,0,0
+
+access_pos_order_type_user,pos.order.type user,model_pos_order_type,base.group_user,1,0,0,0
+access_pos_order_type_manager,pos.order.type manager,model_pos_order_type,point_of_sale.group_pos_manager,1,1,1,1
+access_pos_partner_search,res.partner pos search,base.model_res_partner,point_of_sale.group_pos_user,1,0,0,0

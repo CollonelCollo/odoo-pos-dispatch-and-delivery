@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Inherit Fleet Vehicle form to add Dispatch tab -->
+    <record id="fleet_vehicle_form_meera_dispatch" model="ir.ui.view">
+        <field name="name">fleet.vehicle.form.meera.dispatch</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Insert a new "Dispatch" page into the notebook -->
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Dispatch">
+                    <group>
+                        <field name="is_dispatch_vehicle"/>
+                    </group>
+
+                    <group>
+                        <!-- Only visible when 'Use for Dispatch' is enabled -->
+                        <field name="dispatch_driver_id"
+                               modifiers="{'invisible': [('is_dispatch_vehicle', '=', False)]}"/>
+                        <field name="dispatch_capacity_kg"
+                               modifiers="{'invisible': [('is_dispatch_vehicle', '=', False)]}"/>
+                    </group>
+
+                    <group string="Open Load (Computed)">
+                        <field name="dispatch_open_orders_count" readonly="1"/>
+                        <field name="dispatch_open_weight_kg" readonly="1"/>
+                    </group>
+
+                    <group string="Driver App Authentication">
+                        <field name="dispatch_driver_token" readonly="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

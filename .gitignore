@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Odoo / build artifacts
+*.log
+*.tmp
+*.swp
+*.swo
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Release/build output (keep source only)
+release/build/
+
+# Node (if ever used)
+node_modules/

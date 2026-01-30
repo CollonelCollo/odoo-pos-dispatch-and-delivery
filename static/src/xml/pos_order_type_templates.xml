@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension">
+        <!-- Inject "Order Type" button into the bottom control-buttons row -->
+        <xpath expr="//div[@t-attf-class and contains(@t-attf-class, 'control-buttons')]" position="inside">
+            <button class="btn btn-primary btn-lg"
+                    type="button"
+                    t-on-click="onClickOrderType">
+                <span>Order Type</span>
+            </button>
+        </xpath>
+    </t>
+
+</templates>

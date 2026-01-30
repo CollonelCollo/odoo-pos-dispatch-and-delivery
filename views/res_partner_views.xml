@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_res_partner_form_meera_driver_tracking" model="ir.ui.view">
+        <field name="name">res.partner.form.meera.driver.tracking</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Insert a new tab after the Sales & Purchase page -->
+            <xpath expr="//sheet/notebook/page[@name='sales_purchases']" position="after">
+                <page string="Driver Tracking" name="meera_driver_tracking">
+                    <group>
+                        <!-- Read-only status for NON-managers -->
+                        <field
+                            name="meera_is_driver_ro"
+                            readonly="1"
+                            groups="!odoo_pos_dispatch.group_meera_dispatch_manager"
+                        />
+
+                        <!-- Editable checkbox for Dispatch Managers ONLY -->
+                        <field
+                            name="meera_is_driver"
+                            groups="odoo_pos_dispatch.group_meera_dispatch_manager"
+                        />
+                    </group>
+
+                    <!-- Hide details unless the real flag is true -->
+                    <group invisible="not meera_is_driver">
+
+                        <field name="meera_driver_user_id" readonly="1"/>
+                        <field name="meera_driver_token" readonly="1"/>
+
+                        <button
+                            name="action_generate_driver_token"
+                            type="object"
+                            string="Generate Token"
+                            class="btn-primary"
+                            groups="odoo_pos_dispatch.group_meera_dispatch_manager"
+                        />
+
+                        <button
+                            name="action_create_meera_driver_portal_user"
+                            type="object"
+                            string="Create Driver Portal User"
+                            class="btn-secondary"
+                            groups="odoo_pos_dispatch.group_meera_dispatch_manager"
+                        />
+
+                        <div class="o_form_label">
+                            Drivers are enforced as Portal-only users (do not consume paid Internal user licenses).
+                            Give this token (or a QR built from it) to the driver app.
+                        </div>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

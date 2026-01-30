@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Action to manage POS Order Types -->
+    <record id="action_pos_order_type" model="ir.actions.act_window">
+        <field name="name">POS Order Types</field>
+        <field name="res_model">pos.order.type</field>
+        <!-- Odoo 18: list,form -->
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p>
+                Configure the order types available in POS, for example
+                Dine-in, Takeaway, Delivery.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu under Point of Sale (only POS managers) -->
+    <menuitem
+        id="menu_pos_order_type"
+        name="POS Order Types"
+        parent="point_of_sale.menu_point_root"
+        action="action_pos_order_type"
+        sequence="35"
+        groups="point_of_sale.group_pos_manager"
+    />
+
+    <!-- List view (Odoo 18 uses <list>, not <tree>) -->
+    <record id="view_pos_order_type_list" model="ir.ui.view">
+        <field name="name">pos.order.type.list</field>
+        <field name="model">pos.order.type</field>
+        <field name="arch" type="xml">
+            <list string="POS Order Types">
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="is_delivery"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form view -->
+    <record id="view_pos_order_type_form" model="ir.ui.view">
+        <field name="name">pos.order.type.form</field>
+        <field name="model">pos.order.type</field>
+        <field name="arch" type="xml">
+            <form string="POS Order Type">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="is_delivery"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="POS Configurations">
+                            <field name="config_ids"
+                                   widget="many2many_tags"
+                                   options="{'no_create_edit': True}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

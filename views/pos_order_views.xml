@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- POS Order form: merge Order Type UI + Dispatch UI in one inherited view -->
+    <record id="view_pos_order_form_inherit_meera_dispatch_and_order_type" model="ir.ui.view">
+        <field name="name">pos.order.form.meera.dispatch.and.order.type</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+
+            <!-- =========================================================
+                 A) ORDER TYPE + DELIVERY FIELDS (from meera_pos_order_type)
+                 ========================================================= -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="order_type_id"
+                       domain="[('company_id', 'in', [False, company_id])]"
+                       options="{'no_create': True, 'no_open': True}"/>
+
+                <field name="delivery_name"
+                       placeholder="Delivery Customer Name"
+                       modifiers="{'invisible': [['order_type_id.is_delivery', '=', False]]}"/>
+
+                <field name="delivery_phone"
+                       placeholder="Delivery Phone"
+                       modifiers="{'invisible': [['order_type_id.is_delivery', '=', False]]}"/>
+
+                <field name="delivery_address"
+                       placeholder="Delivery Address"
+                       modifiers="{'invisible': [['order_type_id.is_delivery', '=', False]]}"/>
+
+                <field name="delivery_note"
+                       placeholder="Delivery Note / Landmark"
+                       modifiers="{'invisible': [['order_type_id.is_delivery', '=', False]]}"/>
+            </xpath>
+
+            <!-- =========================================================
+                 B) DISPATCH SMART BUTTON (from odoo_pos_dispatch)
+                 ========================================================= -->
+            <xpath expr="//sheet//div[@name='button_box']" position="inside">
+                <button name="action_open_dispatch"
+                        type="object"
+                        string="Dispatch"
+                        class="oe_stat_button"
+                        modifiers="{'invisible': [('dispatch_order_id', '=', False)]}">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Dispatch</span>
+                        <span class="o_stat_value">
+                            <field name="dispatch_state" widget="badge"/>
+                        </span>
+                    </div>
+                </button>
+            </xpath>
+
+            <!-- =========================================================
+                 C) DISPATCH FIELDS GROUP (from odoo_pos_dispatch)
+                 ========================================================= -->
+            <xpath expr="//sheet/group[1]" position="after">
+                <group string="Dispatch">
+                    <field name="dispatch_order_id" readonly="1"/>
+                    <field name="dispatch_state" readonly="1"/>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

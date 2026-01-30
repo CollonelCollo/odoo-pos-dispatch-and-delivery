@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_pos_config_form_order_type" model="ir.ui.view">
+        <field name="name">pos.config.form.order.type</field>
+        <field name="model">pos.config</field>
+
+        <!-- Correct base POS Config form view for Odoo 18 -->
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+
+        <field name="arch" type="xml">
+            <!-- Simple and robust: insert our block inside the main sheet -->
+            <xpath expr="//sheet" position="inside">
+                <group string="Order Types">
+                    <field name="allowed_order_type_ids"
+                           widget="many2many_tags"
+                           options="{'no_create_edit': True}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

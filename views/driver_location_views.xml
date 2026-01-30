@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- List View -->
+    <record id="view_meera_driver_location_tree" model="ir.ui.view">
+        <field name="name">meera.driver.location.list</field>
+        <field name="model">meera.driver.location</field>
+        <field name="arch" type="xml">
+            <list string="Driver Locations" create="false">
+                <field name="timestamp"/>
+                <field name="driver_id"/>
+                <field name="vehicle_id"/>
+                <field name="lat"/>
+                <field name="lng"/>
+                <field name="accuracy"/>
+                <field name="maps_url"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_meera_driver_location_form" model="ir.ui.view">
+        <field name="name">meera.driver.location.form</field>
+        <field name="model">meera.driver.location</field>
+        <field name="arch" type="xml">
+            <form string="Driver Location">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="driver_id"/>
+                            <field name="vehicle_id"/>
+                            <field name="timestamp"/>
+                        </group>
+                        <group>
+                            <field name="lat"/>
+                            <field name="lng"/>
+                            <field name="accuracy"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="maps_url" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_meera_driver_location_search" model="ir.ui.view">
+        <field name="name">meera.driver.location.search</field>
+        <field name="model">meera.driver.location</field>
+        <field name="arch" type="xml">
+            <search string="Driver Locations">
+                <field name="driver_id"/>
+                <field name="vehicle_id"/>
+                <field name="timestamp"/>
+            </search>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================================================
+         LIST VIEW
+         ============================================================ -->
+    <record id="view_meera_dispatch_order_tree" model="ir.ui.view">
+        <field name="name">meera.dispatch.order.tree</field>
+        <field name="model">meera.dispatch.order</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'delivered'"
+                  decoration-danger="state == 'failed'"
+                  decoration-muted="state in ('cancel', 'draft')">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="priority"/>
+                <field name="pos_order_id"/>
+                <field name="customer_id"/>
+                <field name="driver_id"/>
+                <field name="driver_phone"/>
+                <field name="vehicle_id"/>
+                <field name="order_time"/>
+                <field name="delivery_address"/>
+                <field name="company_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ============================================================
+         FORM VIEW
+         ============================================================ -->
+    <record id="view_meera_dispatch_order_form" model="ir.ui.view">
+        <field name="name">meera.dispatch.order.form</field>
+        <field name="model">meera.dispatch.order</field>
+        <field name="arch" type="xml">
+            <form string="Dispatch Order">
+                <header>
+
+                    <!-- State transition buttons -->
+                    <button name="action_reset_to_draft" type="object"
+                            string="Set to Draft"
+                            class="btn-secondary"
+                            invisible="state in ('delivered','failed','cancel')"/>
+
+                    <button name="action_assign" type="object"
+                            string="Assign"
+                            class="btn-primary"
+                            invisible="state not in ('waiting','pending','draft')"/>
+
+                    <button name="action_mark_enroute" type="object"
+                            string="En Route"
+                            class="btn-primary"
+                            invisible="state not in ('assigned','waiting','pending')"/>
+
+                    <button name="action_mark_delivered" type="object"
+                            string="Delivered"
+                            class="btn-success"
+                            invisible="state not in ('enroute')"/>
+
+                    <button name="action_mark_failed" type="object"
+                            string="Failed"
+                            class="btn-danger"
+                            invisible="state in ('delivered','failed','cancel')"/>
+
+                    <button name="action_cancel" type="object"
+                            string="Cancel"
+                            class="btn-secondary"
+                            invisible="state in ('delivered','failed','cancel')"/>
+
+                    <!-- Live Map (vehicle GPS) -->
+                    <button name="action_open_vehicle_map"
+                            type="object"
+                            string="Live Map"
+                            class="oe_stat_button btn-primary"
+                            icon="fa-map-marker"
+                            invisible="not vehicle_id"/>
+
+                    <!-- Delivery Map (customer destination) -->
+                    <button name="action_open_delivery_map"
+                            type="object"
+                            string="Delivery Map"
+                            class="oe_stat_button btn-secondary"
+                            icon="fa-map"
+                            invisible="not delivery_latitude or not delivery_longitude"/>
+
+                    <!-- Canonical state -->
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="waiting,assigned,enroute,delivered,failed,cancel"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="pos_order_id" readonly="1"/>
+                            <field name="customer_id"/>
+                            <field name="company_id"/>
+                            <field name="priority"/>
+                        </group>
+                        <group>
+                            <field name="driver_id"/>
+                            <field name="driver_phone" readonly="1"/>
+                            <field name="vehicle_id"/>
+                            <field name="order_time"/>
+                            <field name="amount_total"/>
+                            <field name="currency_id"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <!-- ADDRESSES TAB -->
+                        <page string="Addresses">
+                            <group>
+                                <group string="Pickup">
+                                    <field name="pickup_address"/>
+                                </group>
+
+                                <group string="Delivery">
+                                    <field name="delivery_address"/>
+                                    <field name="delivery_latitude"/>
+                                    <field name="delivery_longitude"/>
+
+                                    <button name="action_open_delivery_map"
+                                            type="object"
+                                            string="Open Delivery Map"
+                                            class="btn-primary"
+                                            icon="fa-map"
+                                            invisible="not delivery_latitude or not delivery_longitude"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <!-- NOTES TAB -->
+                        <page string="Notes">
+                            <field name="note"/>
+                        </page>
+
+                        <!-- LIVE TRACKING TAB -->
+                        <page string="Live Tracking">
+                            <group string="Vehicle Live Location">
+                                <group>
+                                    <field name="vehicle_id" readonly="1"/>
+                                    <field name="vehicle_last_latitude" readonly="1"/>
+                                    <field name="vehicle_last_longitude" readonly="1"/>
+                                    <field name="vehicle_last_location_time" readonly="1"/>
+                                </group>
+                                <group>
+                                    <button name="action_open_vehicle_map"
+                                            type="object"
+                                            string="Open Live Map"
+                                            class="btn-primary"
+                                            icon="fa-map-marker"
+                                            invisible="not vehicle_id"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ============================================================
+         SEARCH VIEW (Group By uses state)
+         ============================================================ -->
+    <record id="view_meera_dispatch_order_search" model="ir.ui.view">
+        <field name="name">meera.dispatch.order.search</field>
+        <field name="model">meera.dispatch.order</field>
+        <field name="arch" type="xml">
+            <search string="Dispatch Orders">
+                <field name="name"/>
+                <field name="pos_order_id"/>
+                <field name="customer_id"/>
+                <field name="driver_id"/>
+                <field name="vehicle_id"/>
+                <field name="delivery_address"/>
+
+                <filter string="Waiting" name="f_waiting" domain="[('state','=','waiting')]"/>
+                <filter string="Assigned" name="f_assigned" domain="[('state','=','assigned')]"/>
+                <filter string="En Route" name="f_enroute" domain="[('state','=','enroute')]"/>
+                <filter string="Delivered" name="f_delivered" domain="[('state','=','delivered')]"/>
+                <filter string="Failed" name="f_failed" domain="[('state','=','failed')]"/>
+                <filter string="Cancelled" name="f_cancel" domain="[('state','=','cancel')]"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="gb_state" context="{'group_by':'state'}"/>
+                    <filter string="Driver" name="gb_driver" context="{'group_by':'driver_id'}"/>
+                    <filter string="Vehicle" name="gb_vehicle" context="{'group_by':'vehicle_id'}"/>
+                    <filter string="Company" name="gb_company" context="{'group_by':'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ============================================================
+         KANBAN VIEW (grouped by state) - FIXED Odoo 18 card template
+         ============================================================ -->
+    <record id="view_meera_dispatch_order_kanban" model="ir.ui.view">
+        <field name="name">meera.dispatch.order.kanban</field>
+        <field name="model">meera.dispatch.order</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="priority"/>
+                <field name="pos_order_id"/>
+                <field name="customer_id"/>
+                <field name="driver_id"/>
+                <field name="vehicle_id"/>
+                <field name="order_time"/>
+                <field name="delivery_address"/>
+                <field name="delivery_latitude"/>
+                <field name="delivery_longitude"/>
+
+                <templates>
+                    <!-- Odoo 18: must use 'card' AND wrap with o_kanban_record -->
+                    <t t-name="card">
+                        <div class="o_kanban_record oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <strong><field name="name"/></strong>
+                            </div>
+
+                            <div class="o_kanban_tags mt-1">
+                                <field name="state" widget="badge"/>
+                                <field name="priority" widget="badge"/>
+                            </div>
+
+                            <div class="mt-2">
+                                <t t-if="record.pos_order_id.value">
+                                    <b>POS:</b> <field name="pos_order_id"/><br/>
+                                </t>
+                                <t t-if="record.customer_id.value">
+                                    <b>Customer:</b> <field name="customer_id"/><br/>
+                                </t>
+                                <t t-if="record.driver_id.value">
+                                    <b>Driver:</b> <field name="driver_id"/><br/>
+                                </t>
+                                <t t-if="record.delivery_address.value">
+                                    <b>Address:</b> <field name="delivery_address"/><br/>
+                                </t>
+                                <t t-if="record.order_time.value">
+                                    <b>Order Time:</b> <field name="order_time"/><br/>
+                                </t>
+
+                                <t t-if="record.delivery_latitude.value and record.delivery_longitude.value">
+                                    <div class="mt-1 text-muted">
+                                        <i class="fa fa-map"/> Destination pinned
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+</odoo>
