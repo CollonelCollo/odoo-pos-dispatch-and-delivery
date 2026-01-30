@@ -28,6 +28,8 @@ Designed for restaurants, retail, and wholesale businesses running in-house or a
     "author": "Dakill Technologies Ltd",
     "website": "https://github.com/CollonelCollo/odoo-18-pos-dispatch-and-delivery",
     "license": "OPL-1",
+	"price": 99.0,     
+    "currency": "USD",
     "depends": [
         "mail",
         "point_of_sale",
